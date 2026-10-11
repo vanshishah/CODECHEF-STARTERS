@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+void solve ()
+{
+int N,K;
+if ( scanf("%d %d",&N,&K))
+{
+  int total_time = N + ( N- 1) /(K-1);
+  printf("%d\n",total_time);
+}
+
+}
+int main ()
+{
+int T ;
+if (scanf("%d", &T)==1)
+{
+    while (T--)
+    solve();
+}
+
+return 0;
+}

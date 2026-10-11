@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdbool.h>
+long long a[MAXN];
+long long p[MAXN];
+long long pref_min[MAXN];
+long long suff_min[MAXN];
+
+void solve() {
+    int n;
+    if (scanf("%d", &n) != 1) return;
+    
+    for (int i = 1; i <= n; i++) {
+        scanf("%lld", &a[i]);
+    }
+
+    // Compute prefix sums
+    long long curr = 0;
+    for (int i = 1; i <= n; i++) {
+        curr += a[i];
+        p[i] = curr;
+    }
+
+    // Precompute prefix minimums of P
+    long long m = 2e18;
+    for (int i = 1; i <= n; i++) {
+        if (p[i] < m) m = p[i];
+        pref_min[i] = m;
+    }
+
+    // If no deletion is needed
+    if (pref_min[n] >= 0) {
+        printf("Yes\n");
+        return;
+    }
+
+    // Precompute suffix minimums of P
+    m = 2e18;
+    suff_min[n + 1] = 2e18;
+    for (int i = n; i >= 1; i--) {
+        if (p[i] < m) m = p[i];
+        suff_min[i] = m;
+    }
+
+    bool possible = false;
+    // Try deleting each element at index k (1-based)
+    for (int k = 1; k <= n; k++) {
+        bool cond1 = (k == 1) || (pref_min[k - 1] >= 0);
+        bool cond2 = (k == n) || (suff_min[k + 1] >= a[k]);
+
+        if (cond1 && cond2) {
+            possible = true;
+            break;
+        }
+    }
+
+    if (possible) {
+        printf("Yes\n");
+    } else {
+        printf("No\n");
+    }
+}
+
+int main() {
+    int t;
+    if (scanf("%d", &t) == 1) {
+        while (t--) {
+            solve();
+        }
+    }
+    return 0;
+}

@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java .util.Scanner;
+import java .util.Arrays;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+     Scanner sc = new Scanner (System.in);
+     if(!sc.hasNextInt())
+     return ;
+     int t=sc.nextInt();
+     while(t-->0)
+     {
+         long n = sc.nextLong();
+         int m = sc.nextInt();
+         int k = sc.nextInt();
+         long[] a = new long [m];
+         for (int i = 0; i<m;i++)
+         a[i]= sc.nextLong();
+         
+         Arrays.sort(a);
+         long currentseat = 1;
+         int count =0;
+         int i =0;
+         while(count<k)
+         {
+             if (i<m&&currentseat==a[i])
+             {
+                 currentseat++;
+                 i++;
+             }
+         else {
+             System.out.print(currentseat + ( count ==k-1 ? "":"" + " "));
+             currentseat++;
+             count++;
+            }
+             
+         }
+         System.out.println(" ");
+     }
+         sc.close();
+
+	}
+}
